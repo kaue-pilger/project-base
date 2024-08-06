@@ -1,0 +1,13 @@
+// Mixin to reset button and a's tag styles
+@mixin reset {
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  list-style: none;
+
+  &:focus {
+    outline: none;
+  }
+}

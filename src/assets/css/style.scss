@@ -1,0 +1,134 @@
+@import "partials/colors";
+@import "partials/typography";
+@import "partials/layout";
+@import "partials/mixins";
+@import "partials/animations";
+@import "partials/spacing";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background: $tuna;
+  color: $white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $gradient-black;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &::-webkit-scrollbar{
+    width: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $black;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: $tuna;
+  
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+button, li, a {
+  @include reset;
+}
+
+// ====== Global Classes ======
+
+
+// ==== Blocks ====
+
+.link {
+  @include reset;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.4;
+  }
+}
+
+.menu-mobile {
+  @include responsiveness(lg) {
+    left: 0;
+    bottom: 0;
+  
+    background: $gradient-black;
+  }
+}
+
+.menu-mobile.f-col {
+  animation: menuMobile 0.8s cubic-bezier(0.6, 1, 0.2, 1);
+}
+
+
+// ==== Elements ====
+
+.menu-toggle__line {
+  width: 32px;
+  height: 1.5px;
+  background-color: $mid-gray;
+  transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
+  will-change: transform, opacity, background-color;
+}
+
+// ==== Modifiers ====
+
+.link--active {
+  color: $bombay;
+}
+
+.menu-toggle--active {
+  right: 16px; // Half toogle__line's width
+
+  .menu-toggle__line {
+    position: fixed;
+
+    &:nth-child(1) {
+      transform: rotate(45deg);
+      background-color: $white;
+    }
+    
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    
+    &:nth-child(3) {
+      transform: rotate(-45deg);
+      background-color: $white;
+    }
+  } 
+}
+
+.text--lighter {
+  color: $white;
+}
+
+.text--darkest {
+  color: $abbey;
+}
+
+// ==== Utils ====
+
+.b-radius {
+  border-radius: 16px;
+}

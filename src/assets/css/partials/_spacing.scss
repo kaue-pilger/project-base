@@ -1,0 +1,31 @@
+@for $i from 1 through 8 {
+  .gap-#{$i} {
+    gap: clamp(calc(#{$i} * 0.25rem), calc(#{$i} * 0.5rem + 1vw), calc(#{$i} * 1rem));
+  }
+}
+
+@for $i from 1 through 9 {
+  .dec-gap-#{$i} {
+    gap: clamp(calc(calc(0.25 * #{$i} * 1rem) / 10), calc((0.5 * #{$i} * 1rem) / 10), calc((1 * #{$i} * 1rem) / 10));
+  }
+}
+
+@for $i from 1 through 8 {
+  .pad-#{$i} {
+    padding: clamp(calc(#{$i} * 0.25rem), calc(#{$i} * 0.5rem + 1vw), calc(#{$i} * 1rem));
+  }
+}
+
+.pad-2-4 {
+  padding-top: clamp(0.5rem, 1rem + 3vw, 2rem);
+  padding-bottom: clamp(0.5rem, 1rem + 3vw, 2rem);
+
+  padding-right: clamp(2rem, 2rem + 3vw, 4rem);
+  padding-left: clamp(2rem, 2rem + 3vw, 4rem);
+}
+
+@for $i from 1 through 12 {
+  .mt-#{$i} {
+    margin-top: clamp(calc(#{$i} * 0.25rem), calc(#{$i} * 0.5rem + 1vw), calc(#{$i} * 1rem));
+  }
+}

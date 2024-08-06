@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'Cal Sans';
+  src: url('../fonts/CalSans/fonts/webfonts/CalSans-SemiBold.woff2') format('woff2'), // The most efficient format and supported by most browsers
+       url('../fonts/CalSans/fonts/webfonts/CalSans-SemiBold.woff') format('woff'),   // The alternative format for browsers that don't support WOFF2
+       url('../fonts/CalSans/fonts/webfonts/CalSans-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../fonts/Geist/Geist-Regular-BF6569491e3eff1.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Learn more about what's going on here: 
+// @link https://moderncss.dev/generating-font-size-css-rules-and-creating-a-fluid-type-scale/
+
+$type-ratios: (
+  "minorSecond": 1.067,
+  "majorSecond": 1.125,
+  "minorThird": 1.2,
+  "majorThird": 1.25,
+  "perfectFourth": 1.333,
+  "augmentedFourth": 1.414,
+  "perfectFifth": 1.5,
+  "goldenRatio": 1.618
+);
+
+@function type-ratio($key) {
+  @return map-get($type-ratios, $key);
+}
+
+$type-title-base-size: 0.3893695920889988rem;
+$type-size-ratio: type-ratio("goldenRatio");
+$type-title-levels: 6, 5, 4, 3, 2, 1;
+$type-title-styles: ();
+$level-title-size: $type-title-base-size;
+
+@each $level in $type-title-levels {
+  $level-title-size: $level-title-size * $type-size-ratio;
+  $type-title-styles: map-merge($type-title-styles, (#{"h"}$level: $level-title-size));
+
+  h#{$level} {
+    font-size: $level-title-size;
+    line-height: calc(2px + 2ex + 2px);
+    
+    font-family: "Cal Sans", sans-serif;
+    color: $white;
+
+    @if ($type-size-ratio > 1.2) {
+      $level-unitless: $level-title-size / ($level-title-size * 0 + 1);
+
+      $fluid-reduction: if($level-title-size > 4, 0.5, 0.33);
+
+      $fluid-min: $level-unitless - ($fluid-reduction * $level-unitless);
+      $fluid-min: if($fluid-min > $type-title-base-size, $fluid-min, 1);
+
+      $fluid-scaler: ($level-unitless - $fluid-min) + 4vw;
+
+      font-size: clamp(
+        #{$fluid-min}rem,
+        #{$fluid-scaler} + 1rem,
+        #{$level-title-size}
+      );
+    }
+  }
+}
+
+$type-body-base-size: 0.4140914709517923rem;
+$type-body-levels: 4, 3, 2, 1;
+$type-body-styles: ();
+$level-body-size: $type-body-base-size;
+
+@each $level in $type-body-levels {
+  $level-body-size: $level-body-size * $type-size-ratio;
+  $type-body-styles: map-merge($type-body-styles, (#{".b"}$level: $level-body-size));
+
+  .b#{$level} {
+    font-size: $level-body-size;
+    line-height: calc(2px + 2ex + 2px);
+    
+    font-family: "Geist", sans-serif;
+    color: $mid-gray;
+
+    @if ($type-size-ratio > 1.2) {
+      $level-unitless: $level-body-size / ($level-body-size * 0 + 1);
+
+      $fluid-reduction: if($level-body-size > 4, 0.5, 0.33);
+
+      $fluid-min: $level-unitless - ($fluid-reduction * $level-unitless);
+      $fluid-min: if($fluid-min > $type-body-base-size, $fluid-min, 1);
+
+      $fluid-scaler: ($level-unitless - $fluid-min) + 4vw;
+
+      font-size: clamp(
+        #{$fluid-min}rem,
+        #{$fluid-scaler},
+        #{$level-body-size}
+      );
+    }
+  }
+}
